@@ -54,7 +54,7 @@ public class CustomerOrderService  implements com.mecavia.site.service.CustomerO
 	public String updateCustomerOrder(CustomerOrderDto customerOrderdto) {
 		if(customerOrderrepo.existsById(customerOrderdto.getId())) {
 			CustomerOrder customerOrder = modelMapper.map(customerOrderdto, CustomerOrder.class);
-			customerOrderrepo.save(customerOrder);
+			customerOrderrepo.setOrder(customerOrder.getId(), customerOrder.getCode(), customerOrder.getJobID(), customerOrder.getPrinteddate(), customerOrder.getStatus().ordinal());
 			return VarList.RSP_SUCCESS;
 		}else {
 			return VarList.RSP_NO_DATA_FOUND;

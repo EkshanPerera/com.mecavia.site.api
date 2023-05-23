@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mecavia.site.entity.BillOfMaterial;
 import com.mecavia.site.entity.Client;
+import com.mecavia.site.entity.InventoryItem;
 import com.mecavia.site.util.Status;
 
 import lombok.AllArgsConstructor;
@@ -25,5 +26,6 @@ public class CustomerOrderDto {
 	private List<CustomerOrderProductDto> customerOrderProducts;
 	private String printeddate;
 	private Status status;
+	private List<InventoryItem> inventoryItems;
 	private BillOfMaterial billOfMaterial;
 }

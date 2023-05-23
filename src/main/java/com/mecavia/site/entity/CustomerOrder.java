@@ -42,7 +42,8 @@ public class CustomerOrder {
 	private List<CustomerOrderProduct> customerOrderProducts;
 	private String printeddate;
 	private Status status;
-	@OneToMany(targetEntity = InventoryItem.class, mappedBy = "customerOrder", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	@OneToMany(targetEntity = InventoryItem.class, mappedBy = "customerOrder", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	private List<InventoryItem> inventoryItems;
 	@JsonIgnore
 	@OneToOne(targetEntity = BillOfMaterial.class,mappedBy = "customerOrder",cascade = CascadeType.PERSIST)
