@@ -14,8 +14,8 @@ import com.mecavia.site.util.VarList;
 
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/stockctrl")
+@CrossOrigin(origins = "*")
 public class StockControllerV1 implements com.mecavia.site.controller.StockControllerV1 {
 	@Autowired
 	private StockServiceV1 stockServiceV1;

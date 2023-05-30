@@ -20,7 +20,9 @@ public class PurchaseRequisitionDto {
     private Client supplierid;
     private double totalAmount;
     private String remark;
+    private String quotationno;
     private List<PurchaseRequisitionMaterialDto> purchaseRequisitionMaterials = new ArrayList<>();
     private String printeddate;
+    private String prprinteddate;
     private Status status;
 }

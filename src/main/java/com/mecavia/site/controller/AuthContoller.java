@@ -54,4 +54,9 @@ public class AuthContoller {
 		return ResponseEntity.ok(userservice.register(userDto));
 	}
 	
+	@PostMapping("/chkjwtvalidity")
+	public boolean chkJWTValidity() {
+		return true;
+	};
+	
 }

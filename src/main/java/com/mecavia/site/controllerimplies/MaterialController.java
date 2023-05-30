@@ -17,7 +17,7 @@ import com.mecavia.site.util.VarList;
 
 @RestController
 @RequestMapping("/api/materialctrl")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class MaterialController implements com.mecavia.site.controller.MaterialController {
 
 	@Autowired

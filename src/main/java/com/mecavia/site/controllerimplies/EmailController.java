@@ -13,8 +13,8 @@ import com.mecavia.site.serviceimplies.EmailService;
 import com.mecavia.site.util.VarList;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/emailctrl")
+@CrossOrigin(origins = "*")
 public class EmailController implements com.mecavia.site.controller.EmailController{
 	@Autowired	
 	private EmailService emailService;

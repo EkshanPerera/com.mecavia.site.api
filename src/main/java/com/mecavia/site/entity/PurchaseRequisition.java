@@ -33,9 +33,11 @@ public class PurchaseRequisition {
 	private Client supplierid; 
 	private double totalAmount;
 	private double grossAmount;
+	private String quotationno;
 	private String remark;
 	@OneToMany(mappedBy = "purchaseRequisition", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<PurchaseRequisitionMaterial> purchaseRequisitionMaterials;
 	private String printeddate;
+	private String prprinteddate;
 	private Status status;
 }

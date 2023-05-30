@@ -16,8 +16,8 @@ import com.mecavia.site.serviceimplies.SizeService;
 import com.mecavia.site.util.VarList;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/sizectrl")
+@CrossOrigin(origins = "*")
 public class SizeController implements com.mecavia.site.controller.SizeController {
 	@Autowired
 	private SizeService sizeService;

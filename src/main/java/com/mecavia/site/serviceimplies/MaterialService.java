@@ -59,10 +59,10 @@ public class MaterialService implements com.mecavia.site.service.MaterialService
 		if(materialRepo.existsById(activeInactiveEntityDto.getId())) {
 			int res = materialRepo.activeinactiveMaterial(activeInactiveEntityDto.getId(), activeInactiveEntityDto.getCode(), activeInactiveEntityDto.getStatus().ordinal());
 			res = generalStoreRepo.activeinactiveGenaralStore(activeInactiveEntityDto.getId(), activeInactiveEntityDto.getStatus().ordinal()); 
-			if (res > 0) {
-			    return VarList.RSP_SUCCESS;
-			} else {
-			    return VarList.RSP_ERROR;
+			if(res!=1) {
+				return VarList.RSP_NO_DATA_FOUND;
+			}else {
+				return VarList.RSP_SUCCESS;
 			}
 		}else {
 			return VarList.RSP_NO_DATA_FOUND;

@@ -17,7 +17,7 @@ import com.mecavia.site.util.VarList;
 
 @RestController
 @RequestMapping("/api/productctrl")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class ProductController implements com.mecavia.site.controller.ProductController {
 
 	@Autowired

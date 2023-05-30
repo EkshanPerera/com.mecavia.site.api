@@ -15,9 +15,10 @@ import com.mecavia.site.dto.ResponseDto;
 import com.mecavia.site.serviceimplies.ColourService;
 import com.mecavia.site.util.VarList;
 
-@CrossOrigin
+
 @RestController
 @RequestMapping("/api/colourctrl")
+@CrossOrigin(origins = "*")
 public class ColourController implements com.mecavia.site.controller.ColourController{
 	@Autowired
 	private ColourService colourservice;

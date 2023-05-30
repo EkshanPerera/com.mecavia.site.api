@@ -15,8 +15,8 @@ import com.mecavia.site.dto.UOMDto;
 import com.mecavia.site.serviceimplies.UOMService;
 import com.mecavia.site.util.VarList;
 @RestController
-@CrossOrigin
 @RequestMapping("/api/uomctrl")
+@CrossOrigin(origins = "*")
 public class UOMController implements com.mecavia.site.controller.UOMController {
 	@Autowired
 	private UOMService uOMService;

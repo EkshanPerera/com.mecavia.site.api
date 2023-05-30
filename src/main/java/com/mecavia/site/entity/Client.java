@@ -35,7 +35,6 @@ public class Client{
 	private String firstname;
 	private String middlename; 
 	private String lastname;
-	@Column(unique = true)
 	private String email;
 	@Enumerated(EnumType.STRING)
 	private Role businessRole;

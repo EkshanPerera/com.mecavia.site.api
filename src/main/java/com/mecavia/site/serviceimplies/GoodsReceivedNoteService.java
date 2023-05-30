@@ -40,9 +40,10 @@ public class GoodsReceivedNoteService  implements com.mecavia.site.service.Goods
 		}else {
 			GoodsReceivedNote goodsReceivedNote = modelMapper.map(goodsReceivedNotedto, GoodsReceivedNote.class);
 			List<GoodsReceivedNoteMaterial> goodsReceivedNoteMaterials = new ArrayList<>();
-			
+			int i=0;
 			for(GoodsReceivedNoteMaterialDto grnMaterialDto : goodsReceivedNotedto.getGoodsReceivedNoteMaterials()) {
 			    GoodsReceivedNoteMaterial grnMaterial = modelMapper.map(grnMaterialDto, GoodsReceivedNoteMaterial.class);
+			    grnMaterial.setCode("GRNM"+ String.format("%06d",Integer.parseInt(goodsReceivedNote.getCode().replaceAll("[^0-9]", "").substring(2) + ++i)));
 			    grnMaterial.setGoodsReceivedNote(goodsReceivedNote);
 			    goodsReceivedNoteMaterials.add(grnMaterial);
 			    Material material = grnMaterialDto.getPrmaterial().getMaterial();

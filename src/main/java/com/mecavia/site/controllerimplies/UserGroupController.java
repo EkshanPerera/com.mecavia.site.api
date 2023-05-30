@@ -14,9 +14,10 @@ import com.mecavia.site.dto.ResponseDto;
 import com.mecavia.site.dto.UserGroupDto;
 import com.mecavia.site.serviceimplies.UserGroupService;
 import com.mecavia.site.util.VarList;
+
 @RestController
-@CrossOrigin
 @RequestMapping("/api/usergroupctrl")
+@CrossOrigin(origins = "*")
 public class UserGroupController implements com.mecavia.site.controller.UserGroupController {
 	@Autowired
 	private UserGroupService userGroupService;
