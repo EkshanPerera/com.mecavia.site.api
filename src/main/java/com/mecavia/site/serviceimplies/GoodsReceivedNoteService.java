@@ -16,8 +16,10 @@ import com.mecavia.site.entity.GeneralStore;
 import com.mecavia.site.entity.GoodsReceivedNote;
 import com.mecavia.site.entity.GoodsReceivedNoteMaterial;
 import com.mecavia.site.entity.Material;
+import com.mecavia.site.entity.PurchaseRequisitionMaterial;
 import com.mecavia.site.repo.GeneralStoreRepo;
 import com.mecavia.site.repo.GoodsReceivedNoteRepo;
+import com.mecavia.site.repo.PurchaseRequisitionMaterialRepo;
 import com.mecavia.site.util.VarList;
 
 @Service
@@ -32,6 +34,9 @@ public class GoodsReceivedNoteService  implements com.mecavia.site.service.Goods
 	@Autowired
 	private GeneralStoreRepo generalStoreRepo;
 	
+	@Autowired
+	private PurchaseRequisitionMaterialRepo purchaseRequisitionMaterialRepo;
+	
 	
 	@Override
 	public String saveGoodsReceivedNote(GoodsReceivedNoteDto goodsReceivedNotedto) {
@@ -40,7 +45,9 @@ public class GoodsReceivedNoteService  implements com.mecavia.site.service.Goods
 		}else {
 			GoodsReceivedNote goodsReceivedNote = modelMapper.map(goodsReceivedNotedto, GoodsReceivedNote.class);
 			List<GoodsReceivedNoteMaterial> goodsReceivedNoteMaterials = new ArrayList<>();
+			PurchaseRequisitionMaterial prm = new PurchaseRequisitionMaterial();
 			int i=0;
+			double totArrivedCount = 0;
 			for(GoodsReceivedNoteMaterialDto grnMaterialDto : goodsReceivedNotedto.getGoodsReceivedNoteMaterials()) {
 			    GoodsReceivedNoteMaterial grnMaterial = modelMapper.map(grnMaterialDto, GoodsReceivedNoteMaterial.class);
 			    grnMaterial.setCode("GRNM"+ String.format("%06d",Integer.parseInt(goodsReceivedNote.getCode().replaceAll("[^0-9]", "").substring(2) + ++i)));
@@ -50,9 +57,13 @@ public class GoodsReceivedNoteService  implements com.mecavia.site.service.Goods
 			    double arrivedCount = grnMaterialDto.getArrivedCount();
 			    GeneralStore newGeneralStore =  generalStoreRepo.findByMaterial(material);
 		        newGeneralStore.setItemcount(newGeneralStore.getItemcount() + arrivedCount);
+		        modelMapper.map(purchaseRequisitionMaterialRepo.findBycode(grnMaterialDto.getOrdercode()),prm) ;
+		        totArrivedCount = prm.getTotArrivedCount();
+		        totArrivedCount += grnMaterialDto.getArrivedCount();
 		        generalStoreRepo.save(newGeneralStore);
+		        purchaseRequisitionMaterialRepo.setTotArrivedCount(prm.getId(),totArrivedCount);
+		        
 			}
-			
 			goodsReceivedNote.setGoodsReceivedNoteMaterials(goodsReceivedNoteMaterials);
 			goodsReceivedNoterepo.save(goodsReceivedNote);
 			return VarList.RSP_SUCCESS;

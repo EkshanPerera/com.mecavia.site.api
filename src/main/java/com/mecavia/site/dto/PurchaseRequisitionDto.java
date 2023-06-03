@@ -24,5 +24,6 @@ public class PurchaseRequisitionDto {
     private List<PurchaseRequisitionMaterialDto> purchaseRequisitionMaterials = new ArrayList<>();
     private String printeddate;
     private String prprinteddate;
+    private double totArrivedCount;
     private Status status;
 }

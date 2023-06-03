@@ -40,4 +40,5 @@ public class PurchaseRequisition {
 	private String printeddate;
 	private String prprinteddate;
 	private Status status;
+	
 }

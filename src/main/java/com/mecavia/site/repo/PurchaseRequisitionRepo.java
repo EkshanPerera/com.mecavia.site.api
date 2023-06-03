@@ -12,4 +12,7 @@ public interface PurchaseRequisitionRepo extends JpaRepository<PurchaseRequisiti
 	@Query(value ="update purchase_requisition set  status = ?3 where id = ?1 and prcode = ?2",nativeQuery = true)
 	int activeinactivePurchaseRequisition(int id,String code,int status);  
 	PurchaseRequisition findByid(int id);
+	
+	@Query(value ="update purchaserequisition_material set  tot_arrived_count = ?2 where id = ?1 ",nativeQuery = true)
+	int setTotArrivedCount(int id,double totArrivedCount);  
 }

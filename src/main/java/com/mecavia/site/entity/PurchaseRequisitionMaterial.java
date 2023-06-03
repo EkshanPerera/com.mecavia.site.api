@@ -33,6 +33,7 @@ public class PurchaseRequisitionMaterial {
     @ManyToOne
     @JoinColumn(name = "material_id")
     private Material material;
+    private double totArrivedCount;
 	private double unitrate;
 	private double quantity;
 }

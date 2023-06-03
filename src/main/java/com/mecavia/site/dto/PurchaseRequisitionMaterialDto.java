@@ -15,6 +15,7 @@ public class PurchaseRequisitionMaterialDto {
 	private String code;
     private PurchaseRequisition purchaseRequisition;
     private Material material;
+    private double totArrivedCount;
 	private double unitrate;
 	private double quantity;
 }
