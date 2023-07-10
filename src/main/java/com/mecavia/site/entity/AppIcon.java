@@ -1,13 +1,15 @@
 package com.mecavia.site.entity;
 
-import javax.persistence.CascadeType;
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mecavia.site.util.Status;
 
 import lombok.AllArgsConstructor;
@@ -18,15 +20,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class GeneralStore {
+
+public class AppIcon {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@OneToOne(targetEntity = Material.class,cascade = CascadeType.PERSIST)
-	@JoinColumn(referencedColumnName = "id",name = "fk_matid")
-	private Material materialid;
-	private double itemcount;
-	private double requestedItemcount;
-	private double releasedItemcount;
+	@Column(unique = true)
+	private String code;
+	private String description;
 	private Status status;
+	@ManyToMany(mappedBy = "accIconList")
+	@JsonIgnore
+	private List<UserRole> userRoles;
 }

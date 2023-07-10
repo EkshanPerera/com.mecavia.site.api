@@ -1,14 +1,13 @@
 package com.mecavia.site.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
-import com.mecavia.site.util.Status;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,15 +17,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class GeneralStore {
+public class MaterialOutNoteMaterial {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@OneToOne(targetEntity = Material.class,cascade = CascadeType.PERSIST)
-	@JoinColumn(referencedColumnName = "id",name = "fk_matid")
-	private Material materialid;
-	private double itemcount;
-	private double requestedItemcount;
-	private double releasedItemcount;
-	private Status status;
+	private String code;
+	@JsonIgnore
+	@ManyToOne
+    @JoinColumn(name = "materialoutnote")
+	private MaterialOutNote materialOutNote;
+	@ManyToOne
+    @JoinColumn(name = "material")
+    private Material material;
+	private double releasedCount;
 }

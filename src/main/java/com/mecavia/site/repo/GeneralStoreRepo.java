@@ -12,6 +12,6 @@ public interface GeneralStoreRepo extends JpaRepository<GeneralStore, Integer> {
 	@Query(value = "update general_store set status = ?2 where id = ?1",nativeQuery = true)
 	int activeinactiveGenaralStore(int id,int status);
 		
-	@Query("SELECT new com.mecavia.site.entity.GeneralStore(g.id, g.materialid, g.itemcount, g.status) FROM GeneralStore g WHERE g.materialid = ?1")
+	@Query("SELECT new com.mecavia.site.entity.GeneralStore(g.id, g.materialid, g.itemcount, g.requestedItemcount, g.releasedItemcount, g.status) FROM GeneralStore g WHERE g.materialid = ?1")
 	GeneralStore findByMaterial(Material material);
 }

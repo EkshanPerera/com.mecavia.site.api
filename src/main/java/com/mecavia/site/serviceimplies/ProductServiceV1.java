@@ -35,7 +35,7 @@ public class ProductServiceV1  implements com.mecavia.site.service.ProductServic
 	private ModelMapper modelMapper;
 	
 	@Autowired
-	private PCSMappingService pcsmservice;
+	private PCSMappingServiceImpl pcsmservice;
 	
 	@Autowired
 	private ProductDto productDto;

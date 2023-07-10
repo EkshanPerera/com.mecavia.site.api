@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mecavia.site.dto.AuthenticationRequestDto;
 import com.mecavia.site.dto.AuthenticationResponseDto;
 import com.mecavia.site.dto.UserDto;
-import com.mecavia.site.serviceimplies.UserService;
+import com.mecavia.site.serviceimplies.UserServiceImpl;
 import com.mecavia.site.util.VarList;
 
 
@@ -21,7 +21,7 @@ import com.mecavia.site.util.VarList;
 @CrossOrigin(origins = "*")
 public class AuthContoller {
 	@Autowired
-	private UserService userservice;
+	private UserServiceImpl userservice;
 	
 	
 	@PostMapping("/authenticate")

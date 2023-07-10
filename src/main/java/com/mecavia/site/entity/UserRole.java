@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,6 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+
 public class UserRole {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,4 +36,9 @@ public class UserRole {
 	@OneToMany(targetEntity = User.class,mappedBy = "roleid",cascade = CascadeType.PERSIST)
 	@JsonIgnore
 	private List<User> userslist;
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(name = "userrole_appicon",
+		    joinColumns = @JoinColumn(name = "userrole_id"),
+		    inverseJoinColumns = @JoinColumn(name = "user_role_id"))
+	private List<AppIcon> accIconList;
 }

@@ -6,81 +6,81 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.mecavia.site.dto.ProductDto;
-import com.mecavia.site.dto.ProductVariantDto;
+import com.mecavia.site.controller.MaterialController;
+import com.mecavia.site.dto.ActiveInactiveEntityDto;
+import com.mecavia.site.dto.MaterialDto;
 import com.mecavia.site.dto.ResponseDto;
-import com.mecavia.site.dto.ShrinkedProductDto;
-import com.mecavia.site.serviceimplies.ExtendedProductServiceImpl;
-import com.mecavia.site.serviceimplies.ProductServiceV1;
+import com.mecavia.site.serviceimplies.MaterialServiceImpl;
 import com.mecavia.site.util.VarList;
 
+@RestController
+@RequestMapping("/api/materialctrl")
+@CrossOrigin(origins = "*")
+public class MaterialControllerImpl implements MaterialController {
 
-
-@CrossOrigin
-public class ProductControllerV1 implements com.mecavia.site.controller.ProductControllerV1 {
 	@Autowired
-	private ProductServiceV1 productServiceV1;
+	private MaterialServiceImpl materialServiceImpl;
 	
 	@Autowired
 	private ResponseDto responseDto;
 	
-	@Autowired
-	private ExtendedProductServiceImpl extendedProductServiceImpl;
 	@Override
-	public ResponseEntity<ResponseDto> saveproduct(ProductDto productDto) {
+	public ResponseEntity<ResponseDto> saveMaterial(MaterialDto materialDto) {
 		try {
-			String res = productServiceV1.saveProduct(productDto);
+			String res =  materialServiceImpl.saveMaterial(materialDto);
 			if(res.equals("00")) {
 				responseDto.setCode(VarList.RSP_SUCCESS);
 				responseDto.setMessage("success");
-				responseDto.setContent(productDto);
+				responseDto.setContent(materialDto);
 				return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.ACCEPTED);
 			}else {
 				responseDto.setCode(VarList.RSP_FAIL);
 				responseDto.setMessage("fail");
-				responseDto.setContent(null);
+				responseDto.setContent(materialDto);
 				return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.BAD_REQUEST);
 			}
 		} catch (Exception e) {
-			responseDto.setCode(VarList.RSP_FAIL);
-			responseDto.setMessage("INTERNAL SERVER ERROR");
+			responseDto.setCode(VarList.RSP_ERROR);
+			responseDto.setMessage("Internal server error");
 			responseDto.setContent(e.getMessage());
 			return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@Override
-	public ResponseEntity<ResponseDto> updateproduct(ProductDto productDto) {
+	public ResponseEntity<ResponseDto> updateMaterial(MaterialDto materialDto) {
 		try {
-			String res = productServiceV1.updateProduct(productDto);
+			String res =  materialServiceImpl.updateMaterial(materialDto);
 			if(res.equals("00")) {
 				responseDto.setCode(VarList.RSP_SUCCESS);
 				responseDto.setMessage("success");
-				responseDto.setContent(productDto);
+				responseDto.setContent(materialDto);
 				return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.ACCEPTED);
 			}else {
 				responseDto.setCode(VarList.RSP_FAIL);
 				responseDto.setMessage("fail");
-				responseDto.setContent(null);
+				responseDto.setContent(materialDto);
 				return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.BAD_REQUEST);
 			}
 		} catch (Exception e) {
-			responseDto.setCode(VarList.RSP_FAIL);
-			responseDto.setMessage("INTERNAL SERVER ERROR");
+			responseDto.setCode(VarList.RSP_ERROR);
+			responseDto.setMessage("Internal server error");
 			responseDto.setContent(e.getMessage());
 			return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@Override
-	public ResponseEntity<ResponseDto> addvariant(ProductVariantDto productVariantDto) {
+	public ResponseEntity<ResponseDto> activeinactiveMaterial(ActiveInactiveEntityDto activeInactiveEntityDto) {
 		try {
-			ProductDto productDto  = productServiceV1.savevariant(productVariantDto);
-			if(productDto!=null) {
+			String res =  materialServiceImpl.activeInactiveMaterial(activeInactiveEntityDto);
+			if(res.equals("00")) {
 				responseDto.setCode(VarList.RSP_SUCCESS);
 				responseDto.setMessage("success");
-				responseDto.setContent(productDto);
+				responseDto.setContent(activeInactiveEntityDto);
 				return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.ACCEPTED);
 			}else {
 				responseDto.setCode(VarList.RSP_FAIL);
@@ -89,58 +89,58 @@ public class ProductControllerV1 implements com.mecavia.site.controller.ProductC
 				return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.BAD_REQUEST);
 			}
 		} catch (Exception e) {
-			responseDto.setCode(VarList.RSP_FAIL);
-			responseDto.setMessage("INTERNAL SERVER ERROR");
+			responseDto.setCode(VarList.RSP_ERROR);
+			responseDto.setMessage("Internal server error");
 			responseDto.setContent(e.getMessage());
 			return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@Override
-	public ResponseEntity<ResponseDto> removevariant(ProductVariantDto productVariantDto) {
+	public ResponseEntity<ResponseDto> getMaterial(String materialid) {
 		try {
-			ProductDto productDto  = productServiceV1.deductvariant(productVariantDto);
-			if(productDto!=null) {
+			MaterialDto material = materialServiceImpl.getMaterial(Integer.parseInt(materialid));
+			if(material!=null) {
 				responseDto.setCode(VarList.RSP_SUCCESS);
 				responseDto.setMessage("success");
-				responseDto.setContent(productDto);
+				responseDto.setContent(material);
 				return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.ACCEPTED);
 			}else {
-				responseDto.setCode(VarList.RSP_FAIL);
-				responseDto.setMessage("fail");
-				responseDto.setContent(null);
-				return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.BAD_REQUEST);
-			}
-		} catch (Exception e) {
-			responseDto.setCode(VarList.RSP_FAIL);
-			responseDto.setMessage("INTERNAL SERVER ERROR");
-			responseDto.setContent(e.getMessage());
-			return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
-	@Override
-	public ResponseEntity<ResponseDto> getproducts() {
-		try {
-			List<ShrinkedProductDto> productlist = extendedProductServiceImpl.getProducts();
-			if(productlist.isEmpty()) {
 				responseDto.setCode(VarList.RSP_NO_DATA_FOUND);
-				responseDto.setMessage("no data found");
+				responseDto.setMessage("no records found");
 				responseDto.setContent(null);
-				return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.NOT_FOUND);
-			}else {
-				responseDto.setCode(VarList.RSP_SUCCESS);
-				responseDto.setMessage("success");
-				responseDto.setContent(productlist);
 				return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.ACCEPTED);
 			}
-		}catch ( Exception e){
-			responseDto.setCode(VarList.RSP_NO_DATA_FOUND);
-			responseDto.setMessage("internal server error");
+		} catch (Exception e) {
+			responseDto.setCode(VarList.RSP_ERROR);
+			responseDto.setMessage("Intrnal server error");
 			responseDto.setContent(null);
 			return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
+	@Override
+	public ResponseEntity<ResponseDto> getMaterials() {
+		
+		try {
+			List<MaterialDto> materialList = materialServiceImpl.getMaterials();
+			if(!materialList.isEmpty()) {
+				responseDto.setCode(VarList.RSP_SUCCESS);
+				responseDto.setMessage("success");
+				responseDto.setContent(materialList);
+				return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.ACCEPTED);
+			}else {
+				responseDto.setCode(VarList.RSP_NO_DATA_FOUND);
+				responseDto.setMessage("no records found");
+				responseDto.setContent(null);
+				return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.ACCEPTED);
+			}
+		} catch (Exception e) {
+			responseDto.setCode(VarList.RSP_ERROR);
+			responseDto.setMessage("Intrnal server error");
+			responseDto.setContent(null);
+			return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 }

@@ -1,6 +1,6 @@
 package com.mecavia.site.dto;
 
-import com.mecavia.site.entity.Material;
+import com.mecavia.site.entity.AppIconGroup;
 import com.mecavia.site.util.Status;
 
 import lombok.AllArgsConstructor;
@@ -10,11 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class GeneralStoreDto {
+public class AppIconDto {
 	private int id;
-	private Material materialid;
-	private double itemcount;
-	private double requestedItemcount;
-	private double releasedItemcount;
+	private String code;
+	private String description;
 	private Status status;
+	private AppIconGroup appIconGroup;
 }

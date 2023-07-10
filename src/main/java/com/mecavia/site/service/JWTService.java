@@ -9,6 +9,8 @@ import java.util.function.Function;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.mecavia.site.entity.User;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -30,7 +32,14 @@ public class JWTService {
 	
 	public String genarateToken(UserDetails userDetails) {
 		 try {
-			 return genarateToken(new HashMap<>(),userDetails);
+			 User user = (User) userDetails; 
+			 Map<String, Object> claims = new HashMap<>();
+			 claims.put("id", user.getId()); 
+			 claims.put("roleid", user.getRoleid()); 
+			 claims.put("lastname", user.getLastname()); 
+			 claims.put("firstname", user.getFirstname()); 
+			 claims.put("businessRole", user.getBusinessRole()); 
+			 return genarateToken(claims,userDetails);
 		} catch (Exception e) {
 			return e.getLocalizedMessage();
 		} 

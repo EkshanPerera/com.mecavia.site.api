@@ -16,5 +16,5 @@ public class MaterialRequisitionMaterialDto {
 	private String ordercode;
     private MaterialRequisition materialRequisition;
     private BOMMaterial bommaterial;
-	private double arrivedCount;
+	private double requestedCount;
 }

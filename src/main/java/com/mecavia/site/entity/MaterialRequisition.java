@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.mecavia.site.util.Status;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,4 +31,5 @@ public class MaterialRequisition {
 	@OneToMany(mappedBy = "materialRequisition", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MaterialRequisitionMaterial> materialRequisitionMaterials;
 	private String printeddate;
+	private Status status;
 }

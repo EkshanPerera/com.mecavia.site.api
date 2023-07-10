@@ -1,50 +1,49 @@
 package com.mecavia.site.controllerimplies;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mecavia.site.dto.GeneralStoreDto;
+import com.mecavia.site.controller.EmailController;
+import com.mecavia.site.dto.EmailDto;
 import com.mecavia.site.dto.ResponseDto;
-import com.mecavia.site.serviceimplies.GeneralStoreServiceImpl;
+import com.mecavia.site.serviceimplies.EmailServiceImpl;
 import com.mecavia.site.util.VarList;
 
 @RestController
-@RequestMapping("/api/generalstorectrl")
+@RequestMapping("/api/emailctrl")
 @CrossOrigin(origins = "*")
-public class GeneralStoreController {
-	@Autowired
-	private GeneralStoreServiceImpl generalStoreServiceImpl;
+public class EmailControllerImpl implements EmailController{
+	@Autowired	
+	private EmailServiceImpl emailServiceImpl;
 	
 	@Autowired
 	private ResponseDto responseDto;
 	
-	@GetMapping("/getgeneralstorelist")
-	public ResponseEntity<ResponseDto> getGeneralStoreList() {
+	@Override
+	public ResponseEntity<ResponseDto> sendEmail(EmailDto emailDto) {
 		try {
-			List<GeneralStoreDto> generalStoreList = generalStoreServiceImpl.getGeneralStore();
-			if(!generalStoreList.isEmpty()) {
+			String res = emailServiceImpl.sendSMS(emailDto);
+			if (res == "00") {
 				responseDto.setCode(VarList.RSP_SUCCESS);
 				responseDto.setMessage("success");
-				responseDto.setContent(generalStoreList);
+				responseDto.setContent(emailDto);
 				return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.ACCEPTED);
 			}else {
-				responseDto.setCode(VarList.RSP_NO_DATA_FOUND);
-				responseDto.setMessage("no records found");
+				responseDto.setCode(VarList.RSP_ERROR);
+				responseDto.setMessage("fail");
 				responseDto.setContent(null);
-				return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.ACCEPTED);
+				return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.EXPECTATION_FAILED);
 			}
 		} catch (Exception e) {
 			responseDto.setCode(VarList.RSP_ERROR);
-			responseDto.setMessage("Intrnal server error");
-			responseDto.setContent(null);
+			responseDto.setMessage("Internal Server error");
+			responseDto.setContent(e.getMessage());
 			return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		
 	}
 }

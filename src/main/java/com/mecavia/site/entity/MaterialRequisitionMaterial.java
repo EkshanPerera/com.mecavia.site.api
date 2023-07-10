@@ -25,10 +25,10 @@ public class MaterialRequisitionMaterial {
 	private String ordercode;
 	@JsonIgnore
 	@ManyToOne
-    @JoinColumn(name = "goods_received_note")
+    @JoinColumn(name = "materialrequisition")
     private MaterialRequisition materialRequisition;
 	@ManyToOne
-    @JoinColumn(name = "prmaterial_id")
+    @JoinColumn(name = "bommaterial")
     private BOMMaterial bommaterial;
-	private double arrivedCount;
+	private double requestedCount;
 }

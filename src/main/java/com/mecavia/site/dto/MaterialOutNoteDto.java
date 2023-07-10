@@ -2,7 +2,7 @@ package com.mecavia.site.dto;
 
 import java.util.List;
 
-import com.mecavia.site.entity.BillOfMaterial;
+import com.mecavia.site.entity.MaterialRequisition;
 import com.mecavia.site.util.Status;
 
 import lombok.AllArgsConstructor;
@@ -12,12 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class MaterialRequisitionDto {
+public class MaterialOutNoteDto {
 	private int id;
 	private String code;
 	private String enterddate;
-	private BillOfMaterial billOfMaterial;
-	private List<MaterialRequisitionMaterialDto> materialRequisitionMaterials;
+	private MaterialRequisition materialRequisition;
+	private List<MaterialOutNoteMaterialDto> materialOutNoteMaterials;
 	private String printeddate;
+	private String remark;
 	private Status status;
 }

@@ -1,12 +1,15 @@
 package com.mecavia.site.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 import com.mecavia.site.util.Status;
 
@@ -15,18 +18,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
-public class GeneralStore {
+public class AppIconGroup {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@OneToOne(targetEntity = Material.class,cascade = CascadeType.PERSIST)
-	@JoinColumn(referencedColumnName = "id",name = "fk_matid")
-	private Material materialid;
-	private double itemcount;
-	private double requestedItemcount;
-	private double releasedItemcount;
-	private Status status;
+	@Column(unique = true)
+	private String code;
+	private String description;
+	@OneToMany(targetEntity = AppIcon.class,cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_appicon",referencedColumnName = "id")
+	private List<AppIcon> appiconslist;
+	private Status status;  
 }

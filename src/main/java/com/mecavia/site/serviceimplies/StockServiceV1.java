@@ -29,7 +29,7 @@ public class StockServiceV1 implements StockServiveV1 {
 	private ModelMapper modelMapper;
 	
 	@Autowired
-	private PCSMappingService pcsmService;
+	private PCSMappingServiceImpl pcsmService;
 	
 	@Autowired
 	private InventoryId inventoryId;
