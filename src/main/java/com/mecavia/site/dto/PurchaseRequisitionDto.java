@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mecavia.site.entity.Client;
+import com.mecavia.site.entity.User;
 import com.mecavia.site.util.Status;
 
 import lombok.AllArgsConstructor;
@@ -26,4 +27,8 @@ public class PurchaseRequisitionDto {
     private String prprinteddate;
     private double totArrivedCount;
     private Status status;
+    private User enteredUser;
+	private User printededUser;
+	private User acceptedUser;
+	private User poPrintededUser;
 }

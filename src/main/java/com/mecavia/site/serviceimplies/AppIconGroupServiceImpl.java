@@ -12,11 +12,12 @@ import com.mecavia.site.dto.ActiveInactiveEntityDto;
 import com.mecavia.site.dto.AppIconGroupDto;
 import com.mecavia.site.entity.AppIconGroup;
 import com.mecavia.site.repo.AppIconGroupRepo;
+import com.mecavia.site.service.AppIconGroupService;
 import com.mecavia.site.util.VarList;
 
 @Service
 @Transactional
-public class AppIconGroupServiceImpl implements com.mecavia.site.service.AppIconGroupService {
+public class AppIconGroupServiceImpl implements AppIconGroupService {
 	@Autowired
 	private AppIconGroupRepo appIconGroupRepo;
 	
@@ -37,13 +38,6 @@ public class AppIconGroupServiceImpl implements com.mecavia.site.service.AppIcon
 	@Override
 	public String updateAppIconGroup(AppIconGroupDto appIconGroupDto) {
 		if(appIconGroupRepo.existsById(appIconGroupDto.getId())){
-//			AppIconGroup appIconGroup = modelMapper.map(appIconGroupDto, AppIconGroup.class);
-//			List<AppIcon> appIcons = new ArrayList<>();
-//			for(AppIcon appIcon : appIconGroupDto.getAppiconslist()) {
-//				appIcon.setAppIconGroup(appIconGroup);
-//			    appIcons.add(appIcon);
-//			}
-//			appIconGroup.setAppiconslist(appIcons);
 			appIconGroupRepo.save(modelMapper.map(appIconGroupDto, AppIconGroup.class));
 			return VarList.RSP_SUCCESS;
 		}else {

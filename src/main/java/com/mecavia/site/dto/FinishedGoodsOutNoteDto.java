@@ -13,13 +13,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class BillOfMaterialDto {
-	private int id; 
+public class FinishedGoodsOutNoteDto {
+	private int id;
 	private String code;
+	private String enterddate;
 	private CustomerOrder customerOrder;
-	private List<BOMMaterialDto> bomMaterials;
-	private double totalcost;
+	private List<FinishedGoodsOutNoteProductDto> finishedGoodsOutNoteProducts;
+	private String printeddate;
+	private String remark;
 	private Status status;
-	private String enteredDate;
 	private User enteredUser;
 }

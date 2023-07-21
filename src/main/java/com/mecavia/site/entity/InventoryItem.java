@@ -26,7 +26,7 @@ public class InventoryItem {
 	@JsonIgnore
 	@ManyToOne
 	private CustomerOrder customerOrder;
-	@JsonIgnore
+	
 	@ManyToOne
 	private FinishedGoodsInNoteProduct fgiBulck;
 	private Status status;

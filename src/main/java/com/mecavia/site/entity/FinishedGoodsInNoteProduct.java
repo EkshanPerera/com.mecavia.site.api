@@ -36,6 +36,7 @@ public class FinishedGoodsInNoteProduct {
     @JoinColumn(name = "coproduct_id")
     private CustomerOrderProduct coproduct;
 	private double finishedCount;
+	@JsonIgnore
 	@OneToMany(targetEntity = InventoryItem.class,mappedBy = "fgiBulck",cascade = CascadeType.PERSIST)
 	private List<InventoryItem> inventoryItems;
 }

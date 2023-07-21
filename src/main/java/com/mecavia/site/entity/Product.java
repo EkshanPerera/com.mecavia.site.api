@@ -10,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.mecavia.site.util.Status;
@@ -41,18 +39,18 @@ public class Product {
 	@OneToMany(targetEntity = ProductPrice.class,cascade = CascadeType.ALL)
 	@JoinColumn(referencedColumnName = "id",name = "fk_price")
 	private List<ProductPrice> pricelist;
-	@ManyToMany
-	@JoinTable(
-			name = "product_colour",
-			joinColumns = @JoinColumn(name = "productid"),
-			inverseJoinColumns = @JoinColumn(name = "colourid")
-	)
-	private List<Colour> productcolours;
-	@ManyToMany
-	@JoinTable(
-			name = "product_size",
-			joinColumns = @JoinColumn(name = "productid"),
-			inverseJoinColumns = @JoinColumn(name = "sizeid")
-	)
-	private List<Size> productsizes ;
+//	@ManyToMany
+//	@JoinTable(
+//			name = "product_colour",
+//			joinColumns = @JoinColumn(name = "productid"),
+//			inverseJoinColumns = @JoinColumn(name = "colourid")
+//	)
+//	private List<Colour> productcolours;
+//	@ManyToMany
+//	@JoinTable(
+//			name = "product_size",
+//			joinColumns = @JoinColumn(name = "productid"),
+//			inverseJoinColumns = @JoinColumn(name = "sizeid")
+//	)
+//	private List<Size> productsizes ;
 }

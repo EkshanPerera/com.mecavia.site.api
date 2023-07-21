@@ -12,22 +12,28 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mecavia.site.dto.ActiveInactiveEntityDto;
 import com.mecavia.site.dto.FinishedGoodsInNoteDto;
 import com.mecavia.site.dto.FinishedGoodsInNoteProductDto;
+import com.mecavia.site.entity.CustomerOrderProduct;
 import com.mecavia.site.entity.FinishedGoodsInNote;
 import com.mecavia.site.entity.FinishedGoodsInNoteProduct;
 import com.mecavia.site.entity.InventoryItem;
 import com.mecavia.site.entity.Product;
 import com.mecavia.site.entity.Stock;
+import com.mecavia.site.repo.CustomerOrderProductRepo;
 import com.mecavia.site.repo.FinishedGoodsInNoteRepo;
 import com.mecavia.site.repo.InventoryItemRepo;
 import com.mecavia.site.repo.StockRepo;
+import com.mecavia.site.service.FinishedGoodsInNoteService;
 import com.mecavia.site.util.Status;
 import com.mecavia.site.util.VarList;
 
 @Service
 @Transactional
-public class FinishedGoodsInNoteServiceImpl  implements com.mecavia.site.service.FinishedGoodsInNoteService{
+public class FinishedGoodsInNoteServiceImpl  implements FinishedGoodsInNoteService{
 	@Autowired
 	private FinishedGoodsInNoteRepo finishedGoodsInNoterepo;
+	
+	@Autowired
+	private CustomerOrderProductRepo customerOrderProductRepo;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -46,6 +52,8 @@ public class FinishedGoodsInNoteServiceImpl  implements com.mecavia.site.service
 			FinishedGoodsInNote finishedGoodsInNote = modelMapper.map(finishedGoodsInNotedto, FinishedGoodsInNote.class);
 			List<FinishedGoodsInNoteProduct> finishedGoodsInNoteProducts = new ArrayList<>();
 			List<InventoryItem> inventoryItems = new ArrayList<>();
+			CustomerOrderProduct cop = new CustomerOrderProduct();
+			int totFinishededCount = 0;
 			for(FinishedGoodsInNoteProductDto fginProductDto : finishedGoodsInNotedto.getFinishedGoodsInNoteProducts()) {
 			    FinishedGoodsInNoteProduct fginProduct = modelMapper.map(fginProductDto, FinishedGoodsInNoteProduct.class);
 			    fginProduct.setFinishedGoodsInNote(finishedGoodsInNote);
@@ -57,13 +65,18 @@ public class FinishedGoodsInNoteServiceImpl  implements com.mecavia.site.service
 		        stockRepo.save(newStock);
 		        for(int i = 0;i < finishedCount;i++) {
 		        	InventoryItem newInventoryItem = new InventoryItem();
-		        	newInventoryItem.setCode("1"+ String.format("%013d",Integer.parseInt(finishedGoodsInNote.getCode().replaceAll("[^0-9]", "") + Integer.parseInt(fginProduct.getCode().replaceAll("[^0-9]", "")  + i))));
+		        	newInventoryItem.setCode("1"+ String.format("%011d",Integer.parseInt(finishedGoodsInNote.getCode().replaceAll("[^0-9]", "") + Integer.parseInt(fginProduct.getCode().replaceAll("[^0-9]", "")  + i))));
 			        newInventoryItem.setCustomerOrder(finishedGoodsInNote.getCustomerOrder());
 			        newInventoryItem.setFgiBulck(fginProduct);
 			        newInventoryItem.setStatus(Status.ACTIVE);
 			        inventoryItems.add(newInventoryItem);
 		        };
+		        modelMapper.map(customerOrderProductRepo.findBycode(fginProductDto.getCordercode()),cop) ;
+		        totFinishededCount = cop.getTotFinishedCount();
+		        totFinishededCount += fginProductDto.getFinishedCount();
+		        customerOrderProductRepo.setTotFinishedCount(cop.getId(),totFinishededCount);
 			}
+			
 			finishedGoodsInNote.setFinishedGoodsInNoteProducts(finishedGoodsInNoteProducts);
 			finishedGoodsInNoterepo.save(finishedGoodsInNote);
 			inventoryItemRepo.saveAll(inventoryItems);

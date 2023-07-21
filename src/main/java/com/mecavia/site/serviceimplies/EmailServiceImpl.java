@@ -8,13 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mecavia.site.dto.EmailDto;
 import com.mecavia.site.entity.Email;
 import com.mecavia.site.repo.EmailRepo;
+import com.mecavia.site.service.EmailService;
 import com.mecavia.site.util.EmailApi;
 import com.mecavia.site.util.Status;
 import com.mecavia.site.util.VarList;
 
 @Service
 @Transactional
-public class EmailServiceImpl implements com.mecavia.site.service.EmailService {
+public class EmailServiceImpl implements EmailService {
 
 	@Autowired
 	private EmailApi emailApi;
@@ -35,6 +36,7 @@ public class EmailServiceImpl implements com.mecavia.site.service.EmailService {
 			emailRepo.save(modelMapper.map(emailDto, Email.class));
 			return VarList.RSP_SUCCESS;
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return VarList.RSP_ERROR;
 		}
 	}

@@ -17,12 +17,13 @@ import com.mecavia.site.entity.BillOfMaterial;
 import com.mecavia.site.entity.CustomerOrder;
 import com.mecavia.site.repo.BillOfMaterialRepo;
 import com.mecavia.site.repo.CustomerOrderRepo;
+import com.mecavia.site.service.BillOfMaterialService;
 import com.mecavia.site.util.Status;
 import com.mecavia.site.util.VarList;
 
 @Service
 @Transactional
-public class BillOfMaterialServiceImpl  implements com.mecavia.site.service.BillOfMaterialService{
+public class BillOfMaterialServiceImpl  implements BillOfMaterialService{
 	@Autowired
 	private BillOfMaterialRepo billOfMaterialrepo;
 	
@@ -45,7 +46,7 @@ public class BillOfMaterialServiceImpl  implements com.mecavia.site.service.Bill
 			for(BOMMaterialDto bomMaterialDto : billOfMaterialdto.getBomMaterials()) {
 				BOMMaterial bomMaterial = modelMapper.map(bomMaterialDto, BOMMaterial.class);
 				bomMaterial.setBillOfMaterial(billOfMaterial);
-				bomMaterial.setCode("BOMM"+ String.format("%06d",Integer.parseInt(billOfMaterial.getCode().replaceAll("[^0-9]", "").substring(2) + ++i)));
+				bomMaterial.setCode("BOMM"+ String.format("%09d",Integer.parseInt(billOfMaterial.getCode().replaceAll("[^0-9]", "").substring(2) + ++i)));
 				billOfMaterialProducts.add(bomMaterial);
 			}
 			billOfMaterial.setBomMaterials(billOfMaterialProducts);

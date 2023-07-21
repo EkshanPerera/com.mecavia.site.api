@@ -12,11 +12,12 @@ import com.mecavia.site.dto.ActiveInactiveEntityDto;
 import com.mecavia.site.dto.UserGroupDto;
 import com.mecavia.site.entity.UserGroup;
 import com.mecavia.site.repo.UserGroupRepo;
+import com.mecavia.site.service.UserGroupService;
 import com.mecavia.site.util.VarList;
 
 @Service
 @Transactional
-public class UserGroupServiceImpl implements com.mecavia.site.service.UserGroupService {
+public class UserGroupServiceImpl implements UserGroupService {
 	@Autowired
 	private UserGroupRepo userGroupRepo;
 	

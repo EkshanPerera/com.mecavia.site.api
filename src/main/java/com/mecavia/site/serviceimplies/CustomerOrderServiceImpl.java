@@ -14,17 +14,24 @@ import com.mecavia.site.dto.CustomerOrderDto;
 import com.mecavia.site.dto.CustomerOrderProductDto;
 import com.mecavia.site.entity.CustomerOrder;
 import com.mecavia.site.entity.CustomerOrderProduct;
+import com.mecavia.site.entity.Invoice;
 import com.mecavia.site.repo.CustomerOrderRepo;
+import com.mecavia.site.repo.InvoiceRepo;
+import com.mecavia.site.service.CustomerOrderService;
 import com.mecavia.site.util.VarList;
 
 @Service
 @Transactional
-public class CustomerOrderServiceImpl  implements com.mecavia.site.service.CustomerOrderService{
+public class CustomerOrderServiceImpl  implements CustomerOrderService{
 	@Autowired
 	private CustomerOrderRepo customerOrderrepo;
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private InvoiceRepo invoiceRepo;
+	
 	
 	@Override
 	public String saveCustomerOrder(CustomerOrderDto customerOrderdto) {
@@ -54,7 +61,14 @@ public class CustomerOrderServiceImpl  implements com.mecavia.site.service.Custo
 	public String updateCustomerOrder(CustomerOrderDto customerOrderdto) {
 		if(customerOrderrepo.existsById(customerOrderdto.getId())) {
 			CustomerOrder customerOrder = modelMapper.map(customerOrderdto, CustomerOrder.class);
-			customerOrderrepo.setOrder(customerOrder.getId(), customerOrder.getCode(), customerOrder.getJobID(), customerOrder.getPrinteddate(), customerOrder.getStatus().ordinal());
+			customerOrderrepo.setOrder(customerOrder.getId(), customerOrder.getCode(), customerOrder.getJobID(), customerOrder.getPrinteddate(), customerOrder.getStatus().ordinal(),
+					customerOrder.getAcceptedDate(),customerOrder.getAcceptedUser().getId());
+			List<Invoice> invoiceList = new ArrayList<>();
+			for(Invoice invoice:customerOrder.getInvoices()) {
+				invoice.setCustomerOrder(customerOrder);
+				invoiceList.add(invoice);
+			}
+			invoiceRepo.saveAll(invoiceList);
 			return VarList.RSP_SUCCESS;
 		}else {
 			return VarList.RSP_NO_DATA_FOUND;

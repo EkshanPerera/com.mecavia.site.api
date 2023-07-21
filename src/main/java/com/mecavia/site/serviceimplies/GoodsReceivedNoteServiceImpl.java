@@ -20,11 +20,12 @@ import com.mecavia.site.entity.PurchaseRequisitionMaterial;
 import com.mecavia.site.repo.GeneralStoreRepo;
 import com.mecavia.site.repo.GoodsReceivedNoteRepo;
 import com.mecavia.site.repo.PurchaseRequisitionMaterialRepo;
+import com.mecavia.site.service.GoodsReceivedNoteService;
 import com.mecavia.site.util.VarList;
 
 @Service
 @Transactional
-public class GoodsReceivedNoteServiceImpl  implements com.mecavia.site.service.GoodsReceivedNoteService{
+public class GoodsReceivedNoteServiceImpl  implements GoodsReceivedNoteService{
 	@Autowired
 	private GoodsReceivedNoteRepo goodsReceivedNoterepo;
 	
@@ -50,7 +51,7 @@ public class GoodsReceivedNoteServiceImpl  implements com.mecavia.site.service.G
 			double totArrivedCount = 0;
 			for(GoodsReceivedNoteMaterialDto grnMaterialDto : goodsReceivedNotedto.getGoodsReceivedNoteMaterials()) {
 			    GoodsReceivedNoteMaterial grnMaterial = modelMapper.map(grnMaterialDto, GoodsReceivedNoteMaterial.class);
-			    grnMaterial.setCode("GRNM"+ String.format("%06d",Integer.parseInt(goodsReceivedNote.getCode().replaceAll("[^0-9]", "").substring(2) + ++i)));
+			    grnMaterial.setCode("GRNM"+ String.format("%09d",Integer.parseInt(goodsReceivedNote.getCode().replaceAll("[^0-9]", "").substring(2) + ++i)));
 			    grnMaterial.setGoodsReceivedNote(goodsReceivedNote);
 			    goodsReceivedNoteMaterials.add(grnMaterial);
 			    Material material = grnMaterialDto.getPrmaterial().getMaterial();

@@ -1,7 +1,7 @@
 package com.mecavia.site.dto;
 
-import com.mecavia.site.entity.CustomerOrder;
 import com.mecavia.site.entity.Product;
+import com.mecavia.site.entity.FinishedGoodsOutNote;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,12 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CustomerOrderProductDto {
-	private int id; 
+public class FinishedGoodsOutNoteProductDto {
+	private int id;
 	private String code;
-    private CustomerOrder customerOrder;
+    private FinishedGoodsOutNote finishedGoodsOutNote;
     private Product product;
-	private double quantity;
-	private double unitrate;
-	private int totFinishedCount;
+	private double releasedCount;
 }

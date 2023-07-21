@@ -12,11 +12,12 @@ import com.mecavia.site.dto.ActiveInactiveEntityDto;
 import com.mecavia.site.dto.ClientDto;
 import com.mecavia.site.entity.Client;
 import com.mecavia.site.repo.ClientRepo;
+import com.mecavia.site.service.ClientService;
 import com.mecavia.site.util.VarList;
 
 @Service
 @Transactional
-public class ClientServiceImpl  implements com.mecavia.site.service.ClientService{
+public class ClientServiceImpl  implements ClientService{
 	@Autowired
 	private ClientRepo clientrepo;
 	

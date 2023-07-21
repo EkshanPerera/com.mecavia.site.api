@@ -3,6 +3,7 @@ package com.mecavia.site.dto;
 import java.util.List;
 
 import com.mecavia.site.entity.MaterialRequisition;
+import com.mecavia.site.entity.User;
 import com.mecavia.site.util.Status;
 
 import lombok.AllArgsConstructor;
@@ -21,4 +22,5 @@ public class MaterialOutNoteDto {
 	private String printeddate;
 	private String remark;
 	private Status status;
+	private User enteredUser;
 }

@@ -48,4 +48,12 @@ public class CustomerOrder {
 	@JsonIgnore
 	@OneToOne(targetEntity = BillOfMaterial.class,mappedBy = "customerOrder",cascade = CascadeType.PERSIST)
 	private BillOfMaterial billOfMaterial;
+	private String enteredDate;
+	private String acceptedDate;
+	@ManyToOne
+	private User enteredUser;
+	@ManyToOne
+	private User acceptedUser; 
+	@OneToMany(targetEntity = Invoice.class,mappedBy = "customerOrder",cascade = CascadeType.ALL)
+	private List<Invoice> invoices;
 }

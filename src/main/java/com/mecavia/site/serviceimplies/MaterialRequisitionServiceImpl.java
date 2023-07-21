@@ -18,11 +18,12 @@ import com.mecavia.site.entity.MaterialRequisition;
 import com.mecavia.site.entity.MaterialRequisitionMaterial;
 import com.mecavia.site.repo.GeneralStoreRepo;
 import com.mecavia.site.repo.MaterialRequisitionRepo;
+import com.mecavia.site.service.MaterialRequisitionService;
 import com.mecavia.site.util.VarList;
 
 @Service
 @Transactional
-public class MaterialRequisitionServiceImpl  implements com.mecavia.site.service.MaterialRequisitionService{
+public class MaterialRequisitionServiceImpl  implements MaterialRequisitionService{
 	@Autowired
 	private MaterialRequisitionRepo materialRequisitionrepo;
 	

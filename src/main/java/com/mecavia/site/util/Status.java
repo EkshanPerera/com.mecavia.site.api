@@ -20,8 +20,11 @@ public enum Status {
 	PENDING("STATUS_PENDING"),
 	SUBMIT("STATUS_SUBMIT"),
 	PRINTED("STATUS_PRINTED"),
-	INITIATED("STATUS_INITIATED");
-	@Getter  private final  String status; 
+	INITIATED("STATUS_INITIATED"),
+	INVOICED("STATUS_INVOICED"),
+	CONFIRMED("STATUS_CONFIRMED");
+	@Getter 
+	private final  String status; 
 	Status(String status){
 		 this.status = status;
 	}

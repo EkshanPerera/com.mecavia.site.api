@@ -14,7 +14,7 @@ public interface CustomerOrderRepo extends JpaRepository<CustomerOrder,Integer> 
 	CustomerOrder findByid(int id);
 	
 	@Modifying
-	@Query(value ="update customer_order set  jobid = ?3 , printeddate = ?4, status = ?5 where id = ?1 and code = ?2",nativeQuery = true)
-	int setOrder(int id,String code,String jobid,String printeddate,int status);  
-	
+	@Query(value ="update customer_order set  jobid = ?3 , printeddate = ?4, status = ?5,accepted_date = ?6,accepted_user_id = ?7 where id = ?1 and code = ?2",nativeQuery = true)
+	int setOrder(int id,String code,String jobid,String printeddate,int status,String acceptedDate, int acceptedUserId);
+
 }

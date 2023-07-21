@@ -49,9 +49,31 @@ public class AuthContoller {
 		}
 	}
 	
-	@PostMapping("/register")
-	public ResponseEntity<AuthenticationResponseDto> register(@RequestBody UserDto userDto) {
-		return ResponseEntity.ok(userservice.register(userDto));
+	@PostMapping("/changepswd")
+	public ResponseEntity<AuthenticationResponseDto> changepswd(@RequestBody AuthenticationRequestDto authrequest) {
+		AuthenticationResponseDto dto = new AuthenticationResponseDto();
+		try {
+			UserDto userDto =  userservice.validate(authrequest);
+			userDto.setPassword(authrequest.getNewPassword());
+			userDto.setFirstLogin(false);
+			String token = userservice.register(userDto);
+			if (!token.equals(null)) {
+				dto.setToken(token);
+				dto.setCode(VarList.RSP_SUCCESS);
+				dto.setMassage("success");
+				return new ResponseEntity<AuthenticationResponseDto>(dto,HttpStatus.OK);
+			}else {
+				dto.setToken(null);
+				dto.setCode(VarList.RSP_NOT_AUTHORISED);
+				dto.setMassage("token not found");
+				return new ResponseEntity<AuthenticationResponseDto>(dto,HttpStatus.BAD_REQUEST);
+			}
+		} catch (Exception e) {
+			dto.setToken(null);
+			dto.setCode(VarList.RSP_NOT_AUTHORISED);
+			dto.setMassage("invalid email or password");
+			return new ResponseEntity<AuthenticationResponseDto>(dto,HttpStatus.UNAUTHORIZED);
+		}
 	}
 	
 	@PostMapping("/chkjwtvalidity")

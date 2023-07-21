@@ -32,4 +32,6 @@ public class MaterialRequisition {
 	private List<MaterialRequisitionMaterial> materialRequisitionMaterials;
 	private String printeddate;
 	private Status status;
+	@ManyToOne
+	private User enteredUser; 
 }

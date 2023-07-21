@@ -10,13 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mecavia.site.dto.InventoryDto;
 import com.mecavia.site.entity.Inventory;
 import com.mecavia.site.repo.InventoryRepo;
+import com.mecavia.site.service.InventoryService;
 import com.mecavia.site.util.InventoryId;
 import com.mecavia.site.util.Status;
 import com.mecavia.site.util.VarList;
 
 @Service
 @Transactional
-public class InventoryServiceImpl implements com.mecavia.site.service.InventoryService {
+public class InventoryServiceImpl implements InventoryService {
 	
 	@Autowired
 	private InventoryRepo inventoryRepo;

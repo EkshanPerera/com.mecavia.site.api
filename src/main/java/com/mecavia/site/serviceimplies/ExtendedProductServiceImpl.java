@@ -10,10 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mecavia.site.dto.ProductDto;
 import com.mecavia.site.dto.ShrinkedProductDto;
 import com.mecavia.site.repo.ProductRepoV1;
+import com.mecavia.site.service.ExtendedProductService;
 
 @Service
 @Transactional
-public class ExtendedProductServiceImpl implements com.mecavia.site.service.ExtendedProductService{
+public class ExtendedProductServiceImpl implements ExtendedProductService{
 	
 	@Autowired
 	private ProductRepoV1 productRepoV1;

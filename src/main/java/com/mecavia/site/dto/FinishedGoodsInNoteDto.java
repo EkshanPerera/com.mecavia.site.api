@@ -3,6 +3,7 @@ package com.mecavia.site.dto;
 import java.util.List;
 
 import com.mecavia.site.entity.CustomerOrder;
+import com.mecavia.site.entity.User;
 import com.mecavia.site.util.Status;
 
 import lombok.AllArgsConstructor;
@@ -23,4 +24,5 @@ public class FinishedGoodsInNoteDto {
 	private CustomerOrder customerOrder;
 	private List<FinishedGoodsInNoteProductDto> finishedGoodsInNoteProducts;
 	private String printeddate;
+	private User enteredUser;
 }

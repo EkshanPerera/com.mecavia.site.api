@@ -40,5 +40,12 @@ public class PurchaseRequisition {
 	private String printeddate;
 	private String prprinteddate;
 	private Status status;
-	
+	@ManyToOne
+	private User enteredUser;
+	@ManyToOne
+	private User printededUser;
+	@ManyToOne
+	private User acceptedUser;
+	@ManyToOne
+	private User poPrintededUser;
 }

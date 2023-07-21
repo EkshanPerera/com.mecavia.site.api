@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -31,4 +32,7 @@ public class BillOfMaterial {
 	private List<BOMMaterial> bomMaterials;
 	private double totalcost;
 	private Status status;
+	private String enteredDate;
+	@ManyToOne
+	private User enteredUser;
 }

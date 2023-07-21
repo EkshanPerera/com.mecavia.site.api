@@ -15,11 +15,12 @@ import com.mecavia.site.entity.Product;
 import com.mecavia.site.entity.Stock;
 import com.mecavia.site.repo.ProductRepo;
 import com.mecavia.site.repo.StockRepo;
+import com.mecavia.site.service.ProductService;
 import com.mecavia.site.util.VarList;
 
 @Service
 @Transactional
-public class ProductServiceImpl implements com.mecavia.site.service.ProductService{
+public class ProductServiceImpl implements ProductService{
 
 	@Autowired
 	private ModelMapper modelMapper;

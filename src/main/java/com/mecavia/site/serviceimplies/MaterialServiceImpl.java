@@ -15,11 +15,12 @@ import com.mecavia.site.entity.GeneralStore;
 import com.mecavia.site.entity.Material;
 import com.mecavia.site.repo.GeneralStoreRepo;
 import com.mecavia.site.repo.MaterialRepo;
+import com.mecavia.site.service.MaterialService;
 import com.mecavia.site.util.VarList;
 
 @Service
 @Transactional
-public class MaterialServiceImpl implements com.mecavia.site.service.MaterialService{
+public class MaterialServiceImpl implements MaterialService{
 
 	@Autowired
 	private ModelMapper modelMapper;

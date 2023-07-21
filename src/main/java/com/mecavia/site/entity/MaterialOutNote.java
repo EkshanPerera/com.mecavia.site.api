@@ -33,4 +33,6 @@ public class MaterialOutNote {
 	private String printeddate;
 	private String remark;
 	private Status status;
+	@ManyToOne
+	private User enteredUser;
 }

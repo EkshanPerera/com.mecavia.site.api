@@ -19,12 +19,13 @@ import com.mecavia.site.entity.MaterialOutNoteMaterial;
 import com.mecavia.site.repo.GeneralStoreRepo;
 import com.mecavia.site.repo.MaterialOutNoteRepo;
 import com.mecavia.site.repo.MaterialRequisitionRepo;
+import com.mecavia.site.service.MaterialOutNoteService;
 import com.mecavia.site.util.Status;
 import com.mecavia.site.util.VarList;
 
 @Service
 @Transactional
-public class MaterialOutNoteServiceImpl  implements com.mecavia.site.service.MaterialOutNoteService{
+public class MaterialOutNoteServiceImpl  implements MaterialOutNoteService{
 	@Autowired
 	private MaterialOutNoteRepo materialOutNoterepo;
 	

@@ -35,4 +35,5 @@ public class CustomerOrderProduct {
     private Product product;
 	private double quantity;
 	private double unitrate;
+	private int totFinishedCount; 
 }

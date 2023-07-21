@@ -16,18 +16,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mecavia.site.dto.ActiveInactiveEntityDto;
 import com.mecavia.site.dto.AuthenticationRequestDto;
-import com.mecavia.site.dto.AuthenticationResponseDto;
 import com.mecavia.site.dto.UserDto;
 import com.mecavia.site.entity.User;
 import com.mecavia.site.repo.UserRepo;
 import com.mecavia.site.service.JWTService;
+import com.mecavia.site.service.UserService;
 import com.mecavia.site.util.VarList;
 
 import lombok.var;
 
 @Service
 @Transactional
-public class UserServiceImpl  implements com.mecavia.site.service.UserService{
+public class UserServiceImpl  implements UserService{
 	@Autowired
 	private UserRepo userrepo;
 	
@@ -60,7 +60,6 @@ public class UserServiceImpl  implements com.mecavia.site.service.UserService{
 	@Override
 	public String updateUser(UserDto userdto) {
 		userdto.setPassword(passwordencoder.encode(userdto.getPassword()));
-		System.out.println(userdto);
 		if(userrepo.existsById(userdto.getId())) {
 			userrepo.save(modelMapper.map(userdto, User.class));
 			return VarList.RSP_SUCCESS;
@@ -121,12 +120,22 @@ public class UserServiceImpl  implements com.mecavia.site.service.UserService{
 			throw new AuthenticationException();
 		}
 	}
+	public UserDto validate(AuthenticationRequestDto authrequest) throws Exception {
+		try {
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+					authrequest.getEmail(), authrequest.getPassword()));
+			var user = userrepo.findByEmail(authrequest.getEmail()).orElseThrow();
+			return modelMapper.map(user, UserDto.class) ;
+		} catch (Exception e) {
+			throw new AuthenticationException();
+		}
+	}
 	
-	public AuthenticationResponseDto register(UserDto userDto) {
-		saveUser(userDto);
+	public String register(UserDto userDto) {
+		updateUser(userDto);
 		var user = modelMapper.map(userDto, User.class);
 		var jwtToken = jwtService.genarateToken(user);
-		return AuthenticationResponseDto.builder().token(jwtToken).build();
+		return jwtToken;
 	}
 	
 	

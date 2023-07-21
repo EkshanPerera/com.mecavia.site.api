@@ -7,15 +7,17 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.mecavia.site.dto.ActiveInactiveEntityDto;
 import com.mecavia.site.dto.UOMDto;
 import com.mecavia.site.entity.UOM;
 import com.mecavia.site.repo.UOMRepo;
+import com.mecavia.site.service.UOMService;
 import com.mecavia.site.util.VarList;
 
 @Service
 @Transactional
-public class UOMServiceImpl implements com.mecavia.site.service.UOMService {
+public class UOMServiceImpl implements UOMService {
 	@Autowired
 	private UOMRepo uOMRepo;
 	

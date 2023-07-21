@@ -17,12 +17,13 @@ import com.mecavia.site.entity.PurchaseRequisition;
 import com.mecavia.site.entity.PurchaseRequisitionMaterial;
 import com.mecavia.site.repo.MaterialRepo;
 import com.mecavia.site.repo.PurchaseRequisitionRepo;
+import com.mecavia.site.service.PurchaseRequisitionService;
 import com.mecavia.site.util.Status;
 import com.mecavia.site.util.VarList;
 
 @Service
 @Transactional
-public class PurchaseRequisitionServiceImpl  implements com.mecavia.site.service.PurchaseRequisitionService{
+public class PurchaseRequisitionServiceImpl  implements PurchaseRequisitionService{
 	@Autowired
 	private PurchaseRequisitionRepo purchaseRequisitionrepo;
 	
@@ -72,6 +73,7 @@ public class PurchaseRequisitionServiceImpl  implements com.mecavia.site.service
 				return VarList.RSP_SUCCESS;
 			}else {
 				PurchaseRequisition purchaseRequisition = modelMapper.map(purchaseRequisitiondto, PurchaseRequisition.class);
+//				System.out.println(purchaseRequisitiondto.getPrprinteddate());
 				purchaseRequisitionrepo.save(purchaseRequisition);
 				return VarList.RSP_SUCCESS;
 			}

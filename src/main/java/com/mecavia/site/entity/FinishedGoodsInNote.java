@@ -35,4 +35,6 @@ public class FinishedGoodsInNote {
 	@OneToMany(mappedBy = "finishedGoodsInNote", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<FinishedGoodsInNoteProduct> finishedGoodsInNoteProducts;
 	private String printeddate;
+	@ManyToOne
+	private User enteredUser; 
 }
